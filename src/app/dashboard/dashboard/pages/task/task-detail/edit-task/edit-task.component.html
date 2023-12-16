@@ -1,0 +1,33 @@
+<pre>
+    {{task.categoria}}
+</pre>
+<form [formGroup]="taskFormEdit" (ngSubmit)="onSubmit()">
+    <div>
+        <label class="form-label">Titulo</label>
+        <input type="text" formControlName="titulo">
+    </div>
+    <div>
+        <label class="form-label">Descripción</label>
+        <input type="text" formControlName="descripcion">
+    </div>
+    <div>
+        <label class="form-label">Prioridad</label>
+        <select formControlName="prioridad" type="text" name="prioridad" class="form-select"
+        aria-label="Default select example">
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+        </select>
+    </div>
+    <div>
+        <label class="form-label">Categoría</label>
+        <select formControlName="categoria" name="categoria" class="form-select" aria-label="Default select example">
+          <option *ngFor="let categori of categorias" [value]="">{{categori}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">edit</button>
+      </div>
+</form>
+
+

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./task-detail.component.scss']
 })
 export class TaskDetailComponent implements OnInit, OnDestroy {
-  public task: Task | undefined;
+  public task!: Task;
   public taskId: any ;
   public isLoading:boolean = true
   private subscription:Subscription | undefined
@@ -27,11 +27,13 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
       this.taskId = Number(this.activatedRoute.snapshot.params['id']);
-      this.loadTask()     
+      this.loadTask()   
+      this.subscribeToTaskUpdates()  
   }
   
+  
   loadTask(){
-    this.subscription= this.taskService.getById(this.taskId).subscribe(task => {
+    this.taskService.getById(this.taskId).subscribe(task => {
       if(task){
         this.task = task;
         this.isLoading =  false
@@ -42,4 +44,15 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
     });
     
   }
+  
+  onEditTask(task: Task) {
+    this.taskService.updateById(this.taskId, task);
+  }
+  subscribeToTaskUpdates() {
+    this.taskService.getTaskUpdated().subscribe((updatedTask) => {
+      // Actualizar localmente el objeto task
+      this.task = updatedTask;
+    });
+  }
+  
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../models';
 import { Observable } from 'rxjs';
 import { TaskService } from '../service/task.service';
+import { NotifierService } from 'src/app/core/service/notifier.service';
 
 @Component({
   selector: 'app-tasks',
@@ -11,8 +12,8 @@ import { TaskService } from '../service/task.service';
 export class TasksComponent implements OnInit {
    tasks?: Observable<Task[]>
    isMobile: boolean = false
-   isLoading:boolean = true
-  constructor(private taskService:TaskService){
+   isLoading:boolean=true
+  constructor(private taskService:TaskService, private notifierService:NotifierService) {
     this.isMobile = window.innerWidth < 800
     console.log(this.isMobile);
     
@@ -20,14 +21,20 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.loadTasks()
     this.tasks = this.taskService.getTask()
-    if(this.tasks){
-      this.isLoading =  false
-    }
+    setTimeout(()=>{
+      
+      if(this.tasks){
+        this.isLoading =  false
+      }
+    },500)
   }
 
-  
   deleteTask(id:number){
-    this.taskService.deleteTask(id)
+    try{
+      this.taskService.deleteTask(id)
+      this.notifierService.success("Bien","La tarea se elimino exitosamente")
+    }catch{
+      this.notifierService.error("Error","No se pudo eliminar la tarea")
+    }
   }
- 
 }

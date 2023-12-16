@@ -9,6 +9,7 @@ import { HomeComponent } from './dashboard/pages/home/home.component';
 import { TasksComponent } from './dashboard/pages/task/tasks-list/tasks.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailComponent } from './dashboard/pages/task/task-detail/task-detail.component';
+import { EditTaskComponent } from './dashboard/pages/task/task-detail/edit-task/edit-task.component';
 
 
 
@@ -20,7 +21,8 @@ import { TaskDetailComponent } from './dashboard/pages/task/task-detail/task-det
     TasksComponent,
     CreateTaskComponent,
     HomeComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    EditTaskComponent
   ],
   imports: [
     CommonModule,

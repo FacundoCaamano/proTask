@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateTask } from '../models';
 import { TaskService } from '../service/task.service';
+import { NotifierService } from 'src/app/core/service/notifier.service';
 
 
 
@@ -19,7 +20,7 @@ export class CreateTaskComponent {
     'Otros',
   ]
   
-  constructor(private formBuilder: FormBuilder, private taskService:TaskService) {
+  constructor(private formBuilder: FormBuilder, private taskService:TaskService, private notifierService:NotifierService) {
     this.controlCrearCategoria = formBuilder.control('', Validators.required);
    }
  
@@ -47,15 +48,21 @@ export class CreateTaskComponent {
   }
 
   onSubmit(){
-    if(this.formTask.invalid){
-      this.formTask.markAllAsTouched()
-    }
-    else{
-      const data = {
-        ...this.formTask.value as CreateTask,
-        estado: "Pendiente" as string
+    try{
+      if(this.formTask.invalid){
+        this.formTask.markAllAsTouched()
       }
-      this.taskService.createTask(data)
+      else{
+        const data = {
+          ...this.formTask.value as CreateTask,
+          estado: "Pendiente" as string
+        }
+        this.taskService.createTask(data)
+        this.notifierService.success("Bien","La tarea se creo exitosamente")
+        this.formTask.reset()
+      }
+    }catch{
+      this.notifierService.error("Error","No se pudo crear la tarea")
     }
   }
 
