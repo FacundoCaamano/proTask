@@ -1,0 +1,26 @@
+.nav-container{
+   height: auto;
+   color: white;
+   padding: 20px;
+}
+
+.nav-menu{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   li{
+      list-style: none;
+      transition: ease all 0.3s;
+   }
+   li:hover{
+      cursor: pointer;
+      text-decoration: underline;
+      transform: scale(1.1);
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .nav-menu{
+      flex-direction: column;
+   }
+}

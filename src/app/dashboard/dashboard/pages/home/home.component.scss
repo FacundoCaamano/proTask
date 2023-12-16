@@ -1,0 +1,19 @@
+.glass-card {
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgb(156, 156, 156);
+  border-radius: 20px;
+  padding: 10px;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.glass-card h1 {
+  color: rgb(0, 0, 0);
+}
+
+.glass-card p {
+  color: black;
+}

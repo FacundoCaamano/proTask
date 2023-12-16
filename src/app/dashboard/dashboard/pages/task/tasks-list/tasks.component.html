@@ -1,0 +1,35 @@
+<div *ngIf="isLoading" class="lds-dual-ring"></div>
+<div *ngIf="tasks && !isLoading">
+  <table class="table table-striped">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">#Id</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Prioridad</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks | async" class="taskList">
+          <th scope="row">{{task.id}}</th>
+          <td>{{task.titulo}}</td>
+          <td>{{task.descripcion | slice:0:20}}...</td>
+          <td>{{task.categoria}}</td>
+          <td>{{task.prioridad}}</td>
+          <td>{{task.estado}}</td>
+          <td>{{task.fecha}}</td>
+        <td class="btnsContainer">
+          <button class="btn btn-danger btm-action" (click)="deleteTask(task.id)">Borrar</button>
+          <button  routerLink="../detailtask/{{task.id}}" class="btn btn-warning btm-action">
+            <img class="imgEdit" src="https://www.svgrepo.com/show/500169/config-performance.svg"
+              alt="config">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

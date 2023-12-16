@@ -1,0 +1,35 @@
+
+<div *ngIf="isLoading" class="lds-dual-ring"></div>
+
+<div *ngIf="!task && !isLoading">
+    <h3>Tarea no encontrada</h3>
+</div> 
+
+<table class="table" *ngIf="task">
+    <tbody>
+      <tr>
+        <th>Título:</th>
+        <td>{{ task.titulo }}</td>
+      </tr>
+      <tr>
+        <th>Descripción:</th>
+        <td>{{ task.descripcion }}</td>
+      </tr>
+      <tr>
+        <th>Prioridad:</th>
+        <td>{{ task.prioridad }}</td>
+      </tr>
+      <tr>
+        <th>Categoría:</th>
+        <td>{{ task.categoria }}</td>
+      </tr>
+      <tr>
+        <th>Estado:</th>
+        <td>{{ task.estado }}</td>
+      </tr>
+      <tr>
+        <th>Fecha:</th>
+        <td>{{ task.fecha }}</td>
+      </tr>
+    </tbody>
+  </table>

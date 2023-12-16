@@ -1,0 +1,25 @@
+.formTask{
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgb(156, 156, 156);
+    padding: 20px;
+    border-radius: 20px;
+    div{
+        input{
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        label{
+            width: 100%;
+        }
+       
+    }
+}
+
+.formSelect{
+    display: flex;
+    justify-content: space-between;
+    div{
+        width: 45%;
+    }
+}

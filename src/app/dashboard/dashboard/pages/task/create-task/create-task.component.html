@@ -1,0 +1,75 @@
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form (submit)="createCategory()">
+        <div class="modal-body">
+                <input [formControl]="controlCrearCategoria" type="text">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<form class="formTask" [formGroup]="formTask" (ngSubmit)="onSubmit()">
+    <div>
+        <label class="form-label">Titulo</label>
+        <input formControlName="titulo" type="text" name="titulo"
+            [class.is-invalid]="controlTitulo.invalid && controlTitulo.touched ">
+        <div class="invalid-feedback" *ngIf="controlTitulo.invalid && controlTitulo.touched">
+            Mensaje de error para el campo de título.
+        </div>
+    </div>
+    <div>
+        <label class="form-label">Descripcion</label>
+        <input formControlName="descripcion" type="text" name="descripcion"
+            [class.is-invalid]="controlDescripcion.invalid && controlDescripcion.touched">
+        <div class="invalid-feedback" *ngIf="controlDescripcion.invalid && controlDescripcion.touched">
+            Mensaje de error para el campo de descripción.
+        </div>
+    </div>
+    <div class="formSelect">
+        <div>
+            <label class="form-label">Prioridad</label>
+            <select formControlName="prioridad" type="text" name="categoria" class="form-select"
+                aria-label="Default select example"
+                [class.is-invalid]="controlPrioridad.invalid && controlPrioridad.touched">
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="controlPrioridad.invalid && controlPrioridad.touched">
+                Mensaje de error para el campo de categoria.
+            </div>
+        </div>
+        <div>
+            <label class="form-label">Categoria</label>
+            <select formControlName="categoria" type="text" name="categoria" class="form-select"
+                aria-label="Default select example"
+                [class.is-invalid]="controlCategoria.invalid && controlCategoria.touched">
+                <option *ngFor="let categoria of categorias" value={{categoria}}>
+                    {{categoria}}
+                </option>
+            </select>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Agregar nueva categoria
+            </button>
+            <div class="invalid-feedback" *ngIf="controlCategoria.invalid && controlCategoria.touched">
+                Mensaje de error para el campo de Categoria.
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Crear</button>
+    </div>
+</form>
