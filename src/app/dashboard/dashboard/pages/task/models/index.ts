@@ -8,6 +8,9 @@ export interface Task {
     fecha: string,
     id: number
 }
+export interface Categoria{
+    name: string
+}
 
 export type CreateTask = Omit<Task, 'id' | 'fecha' | 'estado'>
 export type UpdatedTask = Omit<Task, 'id' | 'fecha'>

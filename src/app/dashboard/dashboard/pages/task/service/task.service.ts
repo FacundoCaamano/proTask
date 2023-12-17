@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, map, mergeMap, take } from 'rxjs';
-import { CreateTask, Task, UpdatedTask } from '../models';
+import { Categoria, CreateTask, Task, UpdatedTask } from '../models';
 
 
 @Injectable({
@@ -14,6 +14,9 @@ export class TaskService {
   private _tasks$ = new BehaviorSubject<Task[]>([])
   private tasks$ = this._tasks$.asObservable()
   private taskUpdated$ = new Subject<Task>();
+
+  private _categorias$ = new BehaviorSubject<Categoria[]>([])
+  private categorias$ = this._categorias$.asObservable()
   constructor(private http: HttpClient) { }
 
   loadTasks():void{
@@ -63,7 +66,7 @@ export class TaskService {
   updateById(id: number, task: any) {
     this.http.put<Task>(this.apiUrl + "/" + id, task).subscribe({
       next: (data) => {
-        this.loadTasks(); // Puedes omitir esta línea si prefieres emitir solo el evento
+       
         this.taskUpdated$.next(data); // Emitir evento de actualización
       }
     });
@@ -74,5 +77,41 @@ export class TaskService {
   }
   getById(id: number) {
     return this.http.get<Task>(this.apiUrl +"/"+ id);
+  }
+
+  loadCategories(){
+    this.http.get<Categoria[]>(this.apiUrl +"/categorias").subscribe({
+      next:(data)=>{
+        this._categorias$.next(data)
+      }
+    })
+  }
+
+  getCategories(){
+    return this.categorias$
+  }
+
+  createCategory(categoria:Categoria){
+    this.http.post<Categoria>(this.apiUrl +"/categorias",categoria)
+    .pipe(
+      mergeMap((categoriaCreate)=> this.categorias$.pipe(
+        take(1),
+        map(
+          (arrayActual)=>[...arrayActual,categoriaCreate ]
+        )
+      ))
+    ).subscribe({
+      next:(data)=>{
+        this._categorias$.next(data)
+      }
+    })
+  }
+
+  filterTasksByCategory(category: string) {
+    this.http.get<Task[]>(this.apiUrl + "/categoria/" + category).subscribe({
+      next: (data) => {
+        this._tasks$.next(data);
+      },
+    })
   }
 }

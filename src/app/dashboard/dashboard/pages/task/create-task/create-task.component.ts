@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateTask } from '../models';
+import { Categoria, CreateTask } from '../models';
 import { TaskService } from '../service/task.service';
 import { NotifierService } from 'src/app/core/service/notifier.service';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -11,17 +12,15 @@ import { NotifierService } from 'src/app/core/service/notifier.service';
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss']
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent implements OnDestroy {
   controlCrearCategoria: FormControl
-  categorias =[
-    'Compras',
-    'Trabajo',
-    'Casa',
-    'Otros',
-  ]
-  
+  categorias$: Observable<Categoria[]>
+  private categoriasSubscription: Subscription;
   constructor(private formBuilder: FormBuilder, private taskService:TaskService, private notifierService:NotifierService) {
     this.controlCrearCategoria = formBuilder.control('', Validators.required);
+    this.taskService.loadCategories()
+    this.categorias$ =  this.taskService.getCategories()
+    this.categoriasSubscription = this.categorias$.subscribe();
    }
  
   controlTitulo = new FormControl<string | null>('',Validators.required)
@@ -29,22 +28,28 @@ export class CreateTaskComponent {
   controlPrioridad = new FormControl<string | null>('',Validators.required)
   controlCategoria = new FormControl<string | null>('',Validators.required)
   
- 
+  ngOnDestroy() {
+    if (this.categoriasSubscription) {
+      this.categoriasSubscription.unsubscribe();
+    }
+  }
 
   formTask = new FormGroup({
     titulo: this.controlTitulo,
     descripcion: this.controlDescripcion,
     prioridad: this.controlPrioridad,
     categoria: this.controlCategoria,
-   
-   
   })
 
   createCategory(){
-   const data = this.controlCrearCategoria.value
-   if(data){
-     this.categorias.push(data)
-   }
+    if(this.controlCrearCategoria.invalid){
+      this.controlCrearCategoria.markAllAsTouched()
+    }else{
+      const data:Categoria={
+        name: this.controlCrearCategoria.value 
+      }
+      this.taskService.createCategory(data)
+    }
   }
 
   onSubmit(){
