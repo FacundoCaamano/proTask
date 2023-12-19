@@ -1,9 +1,11 @@
 
-<div *ngIf="isLoadingCategories" class="lds-dual-ring"></div>
-<div *ngFor="let categoria of categorias | async">
-  <button class="btn btn-warning" (click)="filterTasksByCategory(categoria.name)">{{categoria.name}}</button>
+<div class="filter">
+  <div *ngIf="isLoadingCategories" class="lds-dual-ring"></div>
+  <div *ngFor="let categoria of categorias | async">
+    <button class="btn btn-warning" (click)="filterTasksByCategory(categoria.name)">{{categoria.name}}</button>
+  </div>
+  <button *ngIf="!isLoadingCategories"  class="btn btn-primary btnLimpiar" (click)="clearFilter()">Limpiar</button>
 </div>
-<button (click)="clearFilter()">Limpiar</button>
 <div *ngIf="isLoading" class="lds-dual-ring"></div>
 <div>
   <table class="table table-striped">
