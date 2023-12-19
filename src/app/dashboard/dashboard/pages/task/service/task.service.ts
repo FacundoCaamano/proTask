@@ -79,12 +79,13 @@ export class TaskService {
     return this.http.get<Task>(this.apiUrl +"/"+ id);
   }
 
-  loadCategories(){
+  loadCategories():void{
     this.http.get<Categoria[]>(this.apiUrl +"/categorias").subscribe({
       next:(data)=>{
         this._categorias$.next(data)
       }
     })
+    
   }
 
   getCategories(){
@@ -106,12 +107,12 @@ export class TaskService {
       }
     })
   }
+  
 
   filterTasksByCategory(category: string) {
     this.http.get<Task[]>(this.apiUrl + "/categoria/" + category).subscribe({
-      next: (data) => {
-        this._tasks$.next(data);
-      },
+      next: (data) =>  this._tasks$.next(data)
     })
+    return this.tasks$
   }
 }

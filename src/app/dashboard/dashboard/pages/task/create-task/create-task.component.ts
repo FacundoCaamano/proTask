@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Categoria, CreateTask } from '../models';
 import { TaskService } from '../service/task.service';
@@ -12,27 +12,25 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss']
 })
-export class CreateTaskComponent implements OnDestroy {
+export class CreateTaskComponent implements OnInit {
   controlCrearCategoria: FormControl
-  categorias$: Observable<Categoria[]>
-  private categoriasSubscription: Subscription;
+  categorias$!: Observable<Categoria[]>
+  
   constructor(private formBuilder: FormBuilder, private taskService:TaskService, private notifierService:NotifierService) {
     this.controlCrearCategoria = formBuilder.control('', Validators.required);
+   }
+  ngOnInit(): void {
     this.taskService.loadCategories()
     this.categorias$ =  this.taskService.getCategories()
-    this.categoriasSubscription = this.categorias$.subscribe();
-   }
+   
+  }
  
   controlTitulo = new FormControl<string | null>('',Validators.required)
   controlDescripcion = new FormControl<string | null>('',Validators.required)
   controlPrioridad = new FormControl<string | null>('',Validators.required)
   controlCategoria = new FormControl<string | null>('',Validators.required)
   
-  ngOnDestroy() {
-    if (this.categoriasSubscription) {
-      this.categoriasSubscription.unsubscribe();
-    }
-  }
+ 
 
   formTask = new FormGroup({
     titulo: this.controlTitulo,

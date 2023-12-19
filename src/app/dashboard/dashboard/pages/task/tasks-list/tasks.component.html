@@ -1,14 +1,9 @@
-<!-- <form [formGroup]="formFiltro" (ngSubmit)="onSubmitfiltro()">
-  <select formControlName="filtro" type="text" name="categoria" class="form-select w-50"
-  aria-label="Default select example">
-  <option *ngFor="let categoria of categorias$ |async" value={{categoria.name}}>
-    {{categoria.name}}
-  </option>
-</select>
-<button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
-<button type="button" class="btn btn-primary" (click)="clearTask()">Limpiar</button> -->
 
+<div *ngIf="isLoadingCategories" class="lds-dual-ring"></div>
+<div *ngFor="let categoria of categorias | async">
+  <button class="btn btn-warning" (click)="filterTasksByCategory(categoria.name)">{{categoria.name}}</button>
+</div>
+<button (click)="clearFilter()">Limpiar</button>
 <div *ngIf="isLoading" class="lds-dual-ring"></div>
 <div>
   <table class="table table-striped">
