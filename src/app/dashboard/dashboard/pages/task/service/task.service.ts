@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, map, mergeMap, take } from 'rxjs';
 import { Categoria, CreateTask, Task, UpdatedTask } from '../models';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Categoria, CreateTask, Task, UpdatedTask } from '../models';
 })
 export class TaskService {
 
-  apiUrl = "https://api-administrador-de-tareas.vercel.app/api/tareas"
+  apiUrl = environment.api
 
   private _tasks$ = new BehaviorSubject<Task[]>([])
   private tasks$ = this._tasks$.asObservable()
