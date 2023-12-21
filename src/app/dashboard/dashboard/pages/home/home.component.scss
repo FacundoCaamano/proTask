@@ -14,6 +14,15 @@
   color: rgb(0, 0, 0);
 }
 
-.glass-card p {
-  color: black;
+
+
+.links{
+  color: rgb(62, 141, 66);
+  font-size: 1.2rem;
+  transition: ease all 0.3s;
+  font-weight: 600;
+}
+.links:hover{
+  transform: scale(1.1);
+  cursor: pointer;
 }

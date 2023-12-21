@@ -55,4 +55,11 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
     });
   }
   
+  estado(estado:string){
+    const data={
+      ...this.task,
+      estado: estado
+    }
+    this.taskService.updateById(this.taskId, data)
+  }
 }

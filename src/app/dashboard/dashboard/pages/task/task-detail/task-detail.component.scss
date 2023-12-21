@@ -1,4 +1,15 @@
-
+.btnsContainer{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.btns-estados{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 tr{
     display: flex;
     flex-wrap: wrap;

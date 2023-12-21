@@ -1,14 +1,17 @@
+<div class="btnsContainer">
+  <button type="button" class="btn btn-secondary" routerLink="../../tasks" >
+    atras
+  </button>
+  <button *ngIf="task" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Editar tarea
+  </button>
+</div>
 
 <div *ngIf="isLoading" class="lds-dual-ring"></div>
 
 <div *ngIf="!task && !isLoading">
     <h3>Tarea no encontrada</h3>
 </div> 
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Editar tarea
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" *ngIf="task">
@@ -53,3 +56,8 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="task" class="btns-estados">
+    <button class="btn btn-primary" [ngClass]="{ 'btn-success': task.estado === 'Pendiente' }" (click)="estado('Pendiente')">Pendiente</button>
+    <button class="btn btn-primary" [ngClass]="{ 'btn-success': task.estado === 'En progreso' }" (click)="estado('En progreso')">En proceso</button>
+    <button class="btn btn-primary" [ngClass]="{ 'btn-success': task.estado === 'Completada' }" (click)="estado('Completada')">Completada</button>
+  </div>

@@ -21,8 +21,12 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let task of tasks | async" class="taskList">
+    <tbody> 
+      <tr *ngFor="let task of tasks | async" class="taskList" 
+      [ngClass]="{ 'table-success': task.estado === 'Completada'
+      , 'table-warning': task.estado === 'En progreso' 
+      , 'table-danger': task.estado === 'Pendiente' }"
+      >
         <th scope="row">{{task.id}}</th>
         <td>{{task.titulo}}</td>
         <td>{{task.descripcion | slice:0:20}}...</td>

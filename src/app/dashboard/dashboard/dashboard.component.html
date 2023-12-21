@@ -1,5 +1,8 @@
 <app-navbar/>
-<section class="app-dashboard">
+<div class="fondo"  draggable="true"  (mousedown)="dragStart($event)">
+    <img src="../../../assets/images/icons8-circuito-80.png" alt="">
+</div>
+<section class="app-dashboard" >
     <div class="router-outletContainer">
         <router-outlet/>
     </div>

@@ -1,9 +1,9 @@
 <div class="nav-container bg-dark">
   <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
    <ul class="nav-menu">
-    <li routerLink="dashboard/home">Inicio</li>
-    <li routerLink="dashboard/tasks">Tareas</li>
-    <li routerLink="dashboard/createtask">Crear Tarea</li>
+    <li [attr.data-bs-toggle]="viewPortWidth ? 'collapse' : null"  data-bs-target="#navbarToggleExternalContent" routerLink="dashboard/home">Inicio</li>
+    <li [attr.data-bs-toggle]="viewPortWidth ? 'collapse' : null" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" routerLink="dashboard/tasks">Tareas</li>
+    <li [attr.data-bs-toggle]="viewPortWidth ? 'collapse' : null" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" routerLink="dashboard/createtask">Crear Tarea</li>
    </ul>
   </div>
   <nav class="navbar navbar-dark bg-dark">
