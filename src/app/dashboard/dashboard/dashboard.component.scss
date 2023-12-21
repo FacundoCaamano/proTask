@@ -1,8 +1,7 @@
 .fondo{
   position: absolute;
   top: 0;
-  left: 0;
-  cursor: move;
+  right:  0;
 }
 .app-dashboard {
     position: relative; /* Asegura que la pseudo-clase ::before se posicione correctamente */
@@ -18,12 +17,17 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-image: url('../../../assets/images/fondo.jpg');
     height: 100%;
     background-size: cover;
     opacity: 0.3;
     background-attachment: fixed;
     z-index: -1; /* Asegura que la capa ::before esté detrás del contenido */
+  }
+  .background::before{
+    background-image: url('../../../assets/images/fondo.jpg');
+  }
+  .background2::before{
+    background-image: url('../../../assets/images/fondo2.jpg');
   }
   .router-outletContainer{
     min-width: 50vw;

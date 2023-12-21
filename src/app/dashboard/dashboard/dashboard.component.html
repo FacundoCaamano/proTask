@@ -1,8 +1,8 @@
 <app-navbar/>
-<div class="fondo"  draggable="true"  (mousedown)="dragStart($event)">
+<div class="fondo" (click)="background = !background">
     <img src="../../../assets/images/icons8-circuito-80.png" alt="">
 </div>
-<section class="app-dashboard" >
+<section class="app-dashboard background" [ngClass]="{ 'background2': background}" >
     <div class="router-outletContainer">
         <router-outlet/>
     </div>
